@@ -1,6 +1,6 @@
 from fenwick import Fenwick
 
-a = [2, 11, 4, -5]
+a = [2, 11, 4, -5, 6]
 
 f = Fenwick(a)
 print(f.values())

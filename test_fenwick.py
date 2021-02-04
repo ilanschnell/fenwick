@@ -46,7 +46,7 @@ class TestsFenwick(unittest.TestCase):
             self.assertTrue(math.isclose(f[i], a[i]))
 
     def test_array(self):
-        N = 10
+        N = 10000
         a = array.array('l')
         for _ in range(N):
             a.append(random.randint(-1000, 1000))
@@ -54,6 +54,7 @@ class TestsFenwick(unittest.TestCase):
         b = f.values()
         self.assertEqual(a, b)
         self.assertIsInstance(b, array.array)
+        self.assertEqual(f.prefix_sum(N), sum(a))
 
 
 if __name__ == '__main__':
