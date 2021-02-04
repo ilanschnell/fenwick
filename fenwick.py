@@ -1,3 +1,6 @@
+from copy import copy
+
+
 class Fenwick(object):
 
     def __init__(self, n):
@@ -6,7 +9,7 @@ class Fenwick(object):
             self.a = [0] * n
             return
 
-        self.a = list(n)
+        self.a = copy(n)
         self.n = len(self.a)
         for i in range(1, self.n + 1):
             j = i + (i & -i)  # parent in update tree
@@ -42,7 +45,9 @@ class Fenwick(object):
 
     def values(self):
         "Return a list of all values in O(n)."
-        res = [0] * self.n
+        res = copy(self.a)
+        for i in range(self.n):
+            res[i] = 0
         for i in range(1, self.n + 1):
             res[i - 1] += self.a[i - 1]
             j = i + (i & -i)

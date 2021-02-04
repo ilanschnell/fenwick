@@ -1,3 +1,4 @@
+import array
 import math
 import random
 import unittest
@@ -16,9 +17,11 @@ class TestsFenwick(unittest.TestCase):
         for n in range(100):
             a = [random.randint(-100, 100) for _ in range(n)]
             f = Fenwick(n)
-            for i, v in enumerate(a):
+            for i, v in enumerate(a):  # O(n * log n)
                 f.add(i, v)
-            self.assertEqual(f.values(), a)
+            b = f.values()
+            self.assertEqual(b, a)
+            self.assertIsInstance(b, list)
             self.assertEqual([f[i] for i in range(n)], a)
 
     def test_randint(self):
@@ -41,6 +44,17 @@ class TestsFenwick(unittest.TestCase):
         self.assertTrue(math.isclose(f.prefix_sum(N), sum(a)))
         for i in range(N):
             self.assertTrue(math.isclose(f[i], a[i]))
+
+    def test_array(self):
+        N = 10
+        a = array.array('l')
+        for _ in range(N):
+            a.append(random.randint(-1000, 1000))
+        f = Fenwick(a)
+        b = f.values()
+        self.assertEqual(a, b)
+        self.assertIsInstance(b, array.array)
+
 
 if __name__ == '__main__':
     unittest.main()
